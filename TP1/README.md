@@ -337,6 +337,8 @@ WantedBy=multi-user.target
 [web@node1 ~]$ sudo systemctl stop web
 [web@node1 ~]$ sudo systemctl start web
 ```
+
+```
 [web@node1 ~]$ curl localhost:8888
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
