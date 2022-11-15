@@ -273,6 +273,8 @@ Configuration Apache Reset
 
 ### 2. Setup
 
+#### A. Base de données
+
 ```
 [max@db ~]$ sudo dnf install mariadb-server
 
@@ -332,7 +334,6 @@ Query OK, 0 rows affected (0.001 sec)
 
 ```
 [max@localhost ~]$ mysql -u nextcloud -h 10.102.1.12 -p
-Enter password:
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 23
 Server version: 10.5.16-MariaDB MariaDB Server
@@ -341,7 +342,17 @@ Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-MariaDB [(none)]>
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| nextcloud          |
++--------------------+
+2 rows in set (0.001 sec)
 
-``` 
-
+MariaDB [(none)]> USE nextcloud
+Database changed
+MariaDB [nextcloud]> SHOW TABLES;
+Empty set (0.001 sec)   
+```
