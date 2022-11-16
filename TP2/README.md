@@ -356,3 +356,139 @@ Database changed
 MariaDB [nextcloud]> SHOW TABLES;
 Empty set (0.001 sec)   
 ```
+
+```
+MariaDB [(none)]> SELECT user FROM mysql.user
+``` 
+
+#### B. Serveur Web et NextCloud
+
+```
+[max@localhost ~]$ sudo dnf config-manager --set-enabled crb
+
+[max@localhost ~]$ sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
+Installed:
+  epel-release-9-4.el9.noarch                remi-release-9.0-6.el9.remi.noarch
+  yum-utils-4.0.24-4.el9_0.noarch
+
+Complete!
+
+[max@localhost ~]$ dnf module list php
+Remi's Modular repository for Enterprise Linux 9 - x86_64
+Name        Stream          Profiles                          Summary
+php         remi-7.4        common [d], devel, minimal        PHP scripting language
+php         remi-8.0        common [d], devel, minimal        PHP scripting language
+php         remi-8.1        common [d], devel, minimal        PHP scripting language
+php         remi-8.2        common [d], devel, minimal        PHP scripting language
+
+Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
+
+[max@localhost ~]$ sudo dnf module enable php:remi-8.1 -y
+Enabling module streams:
+ php                                      remi-8.1
+
+Transaction Summary
+===========================================================================================
+
+Complete!
+
+[max@localhost ~]$ sudo dnf install -y php81-php
+Installed:
+  environment-modules-5.0.1-1.el9.x86_64       libsodium-1.0.18-8.el9.x86_64
+  libxslt-1.1.34-9.el9.x86_64                  oniguruma5php-6.9.8-1.el9.remi.x86_64
+  php81-php-8.1.12-1.el9.remi.x86_64           php81-php-cli-8.1.12-1.el9.remi.x86_64
+  php81-php-common-8.1.12-1.el9.remi.x86_64    php81-php-fpm-8.1.12-1.el9.remi.x86_64
+  php81-php-mbstring-8.1.12-1.el9.remi.x86_64  php81-php-opcache-8.1.12-1.el9.remi.x86_64
+  php81-php-pdo-8.1.12-1.el9.remi.x86_64       php81-php-sodium-8.1.12-1.el9.remi.x86_64
+  php81-php-xml-8.1.12-1.el9.remi.x86_64       php81-runtime-8.1-2.el9.remi.x86_64
+  scl-utils-1:2.0.3-2.el9.x86_64               tcl-1:8.6.10-6.el9.x86_64
+
+Complete!
+``` 
+
+```
+[max@localhost ~]$ sudo dnf install -y libxml2 openssl php81-php php81-php-ctype php81-php-curl php81-php-gd php81-php-iconv php81-php-json php81-php-libxml php81-php-mbstring php81-php-openssl php81-php-posix php81-php-session php81-php-xml php81-php-zip php81-php-zlib php81-php-pdo php81-php-mysqlnd php81-php-intl php81-php-bcmath php81-php-gmp
+Installed:
+  fontconfig-2.13.94-2.el9.x86_64              fribidi-1.0.10-6.el9.x86_64
+  gd3php-2.3.3-5.el9.remi.x86_64               jbigkit-libs-2.1-23.el9.x86_64
+  libX11-1.7.0-7.el9.x86_64                    libX11-common-1.7.0-7.el9.noarch
+  libXau-1.0.9-8.el9.x86_64                    libXpm-3.5.13-7.el9.x86_64
+  libicu71-71.1-2.el9.remi.x86_64              libimagequant-2.17.0-1.el9.x86_64
+  libjpeg-turbo-2.0.90-5.el9.x86_64            libraqm-0.8.0-1.el9.x86_64
+  libtiff-4.2.0-3.el9.x86_64                   libwebp-1.2.0-3.el9.x86_64
+  libxcb-1.13.1-9.el9.x86_64                   php81-php-bcmath-8.1.12-1.el9.remi.x86_64
+  php81-php-gd-8.1.12-1.el9.remi.x86_64        php81-php-gmp-8.1.12-1.el9.remi.x86_64
+  php81-php-intl-8.1.12-1.el9.remi.x86_64      php81-php-mysqlnd-8.1.12-1.el9.remi.x86_64
+  php81-php-pecl-zip-1.21.1-1.el9.remi.x86_64  php81-php-process-8.1.12-1.el9.remi.x86_64
+  remi-libzip-1.9.2-3.el9.remi.x86_64          xml-common-0.6.3-58.el9.noarch
+
+Complete!
+``` 
+
+```
+[max@localhost ~]$ sudo mkdir /var/www/tp2_nextcloud
+``` 
+
+```
+[max@localhost ~]$ sudo dnf install wget -y
+Installed:
+  wget-1.21.1-7.el9.x86_64
+
+Complete!
+
+[max@localhost ~]$ wget https://download.nextcloud.com/server/prereleases/nextcloud-25.0.0rc3.zip
+
+nextcloud-25.0.0rc3.zi 100%[===========================>] 168.17M  2.89MB/s    in 89s
+
+2022-11-15 14:49:02 (1.89 MB/s) - ‘nextcloud-25.0.0rc3.zip’ saved [176341139/176341139]
+```
+
+```
+[max@localhost ~]$ sudo dnf install unzip -y
+Installed:
+  unzip-6.0-56.el9.x86_64
+
+Complete!
+
+[max@localhost ~]$ sudo unzip nextcloud-25.0.0rc3.zip
+   creating: nextcloud/config/
+ extracting: nextcloud/config/CAN_INSTALL
+  inflating: nextcloud/config/config.sample.php
+  inflating: nextcloud/config/.htaccess
+
+[max@localhost ~]$ sudo mv nextcloud/* /var/www/tp2_nextcloud/
+```
+
+```
+[max@localhost ~]$ ls /var/www/tp2_nextcloud/
+3rdparty  console.php  dist        occ           public.php  status.php
+apps      COPYING      index.html
+``` 
+
+```
+[max@localhost ~]$ ls -al /var/www/tp2_nextcloud/
+total 132
+drwxr-xr-x. 14 apache root  4096 Nov 15 14:53 .
+drwxr-xr-x.  5 root   root    54 Nov 15 14:45 ..
+drwxr-xr-x. 47 apache root  4096 Oct  6 14:47 3rdparty
+drwxr-xr-x. 50 apache root  4096 Oct  6 14:44 apps
+-rw-r--r--.  1 apache root 19327 Oct  6 14:42 AUTHORS
+drwxr-xr-x.  2 apache root    67 Oct  6 14:47 config
+``` 
+
+```
+[max@localhost ~]$ sudo cat /etc/httpd/conf/httpd.conf
+
+IncludeOptional conf.d/*.conf
+```
+
+```
+[max@localhost ~]$ sudo systemctl restart httpd
+```
+
+
+
+
+
+
+
