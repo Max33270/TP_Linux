@@ -486,9 +486,43 @@ IncludeOptional conf.d/*.conf
 [max@localhost ~]$ sudo systemctl restart httpd
 ```
 
+#### C. Finaliser l'installation de NextCloud
 
+```
+#
+# Copyright (c) 2007 F-Secure Corporation 
+# 
+# This is a HOSTS file created during malware removal. 
+#
+# Your original HOSTS file was infected and it was replaced 
+# by this file containing only clean default entries. 
+# The original HOSTS file may be restored from the product's
+# quarantine feature.
+#
+127.0.0.1	localhost
+10.102.1.11 web.tp2.linux
+::1			localhost
 
+```
 
+```
+PS C:\Users\mdoub> curl web.tp2.linux
+curl : HTTP Server Test Page
+This page is used to test the proper operation of an HTTP server after it has been installed on a Rocky Linux system.
+If you can read this page, it means that the software it working correctly.
+Just visiting?
+``` 
 
+```
+MariaDB [(none)]> USE nextcloud;
+Database changed
+MariaDB [nextcloud]> SELECT COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE';
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.007 sec)
+```
 
 
