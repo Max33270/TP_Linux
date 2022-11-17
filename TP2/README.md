@@ -1,4 +1,4 @@
-# TP2 : Gestion de service
+# TP2 : Gestion de service - Maxim Doublait B2B
 
 ## I. Un premier serveur web
 
@@ -506,11 +506,19 @@ IncludeOptional conf.d/*.conf
 ```
 
 ```
-PS C:\Users\mdoub> curl web.tp2.linux
-curl : HTTP Server Test Page
-This page is used to test the proper operation of an HTTP server after it has been installed on a Rocky Linux system.
-If you can read this page, it means that the software it working correctly.
-Just visiting?
+PS C:\Users\mdoub\Desktop> curl web.tp2.linux
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <script> window.location.href="index.php"; </script>
+                        <meta http-equiv="refresh" content="0; URL=index.php">
+                    </head>
+                    </html>
+
 ``` 
 
 ```
