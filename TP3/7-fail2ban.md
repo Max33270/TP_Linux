@@ -2,6 +2,7 @@
 
 ## Module 7 : Fail2ban
 
+### Installations 
 ```
 [max@db ~]$ sudo dnf install epel-release -y
 Package epel-release-9-4.el9.noarch is already installed.
@@ -18,6 +19,8 @@ Installed:
 
 Complete!
 ``` 
+
+### Configuration de Fail2ban
 
 ```
 [max@db ~]$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
@@ -46,6 +49,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/fail2ban.service →
        Docs: man:fail2ban(1)
 ```
 
+### Test
 ```
 [max@localhost ~]$ ssh max@10.102.1.12
 The authenticity of host '10.102.1.12 (10.102.1.12)' can't be established.

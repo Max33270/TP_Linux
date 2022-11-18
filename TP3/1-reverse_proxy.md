@@ -59,7 +59,6 @@ LISTEN      0           128                       [::]:22                      [
 success
 [max@proxy ~]$ sudo firewall-cmd --reload
 success
-[max@proxy ~]$ sudo firewall-cmd --list-all
 ```
 - utiliser une commande `ps -ef` pour déterminer sous quel utilisateur tourne NGINX
 ```
@@ -88,7 +87,7 @@ max        10692     820  0 12:34 pts/0    00:00:00 grep --color=auto nginx
     - la conf est dans `/etc/nginx`
     - procédez comme pour Apache : repérez les fichiers inclus par le fichier de conf principal, et créez votre fichier de conf en conséquence
 ```
-[max@proxy ~]$ sudo nano /etc/nginx/conf.d/nginx2.conf                                                                       /conf.d/nginx2.conf                                                                          Modified
+[max@proxy ~]$ sudo nano /etc/nginx/conf.d/nginx2.conf                                         
 server {
     # On indique le nom que client va saisir pour accéder au service
     # Pas d'erreur ici, c'est bien le nom de web, et pas de proxy qu'on veut ici !
