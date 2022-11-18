@@ -75,3 +75,20 @@ info: CPU utilization of users on the system itself.
 ```
 [max@db ~]$ sudo systemctl restart netdata
 ``` 
+
+```
+[max@db ~]$ sudo dnf install stress-ng
+Installed:
+  Judy-1.0.5-28.el9.x86_64  lksctp-tools-1.0.19-1.el9.x86_64  stress-ng-0.13.10-1.el9.x86_64
+
+Complete!
+``` 
+
+```
+[max@db ~]$ stress-ng -c 10 -l 60
+stress-ng: info:  [47912] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
+stress-ng: info:  [47912] dispatching hogs: 10 cpu
+stress-ng: info:  [47912] successful run completed in 24.22s
+```
+
+![](../netdata.png)
