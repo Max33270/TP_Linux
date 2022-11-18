@@ -2,15 +2,6 @@
 
 ## Module 5 : Monitoring
 
-Dans ce sujet on va installer un outil plutôt clé en main pour mettre en place un monitoring simple de nos machines.
-L'outil qu'on va utiliser est Netdata.
-➜ Je vous laisse suivre la doc pour le mettre en place ou ce genre de lien. Vous n'avez pas besoin d'utiliser le "Netdata Cloud" machin truc. Faites simplement une install locale.
-Installez-le sur web.tp2.linux et db.tp2.linux.
-Une fois en place, Netdata déploie une interface un Web pour avoir moult stats en temps réel, utilisez une commande ss pour repérer sur quel port il tourne.
-Utilisez votre navigateur pour visiter l'interface web de Netdata http://<IP_VM>:<PORT_NETDATA>.
-➜ Configurer Netdata pour qu'il vous envoie des alertes dans un salon Discord dédié en cas de soucis
-➜ Vérifier que les alertes fonctionnent en surchargeant volontairement la machine par exemple (effectuez des stress tests de RAM et CPU, ou remplissez le disque volontairement par exemple)
-
 ``` 
 [max@db ~]$ sudo dnf update
 [max@db ~]$ sudo dnf install epel-release -y
@@ -47,3 +38,40 @@ LISTEN 0      4096           [::1]:8125          [::]:*    users:(("netdata",pid
 LISTEN 0      4096            [::]:19999         [::]:*    users:(("netdata",pid=46007,fd=7))
 ``` 
 
+```
+[max@db ~]$ sudo nano /etc/netdata/health_alarm_notify.conf
+  [1/1]                          health_alarm_notify.conf
+###############################################################################
+# sending discord notifications
+
+# note: multiple recipients can be given like this:
+#                  "CHANNEL1 CHANNEL2 ..."
+
+# enable/disable sending discord notifications
+SEND_DISCORD="YES"
+
+# Create a webhook by following the official documentation -
+# https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1043125556461436988/lJPsBvM737nb7J4J2HFw4A6YanJ05g43Qjj2p4HSjOtSVjcGWN_pUGW7rmwZl0Xic4UK"
+
+# if a role's recipients are not configured, a notification will be send to
+# this discord channel (empty = do not send a notification for unconfigured
+# roles):
+DEFAULT_RECIPIENT_DISCORD="general"
+```
+
+```
+[max@db ~]$ sudo nano /etc/netdata/health.d/cpu_usage.conf
+alarm: cpu_usage
+on: system.cpu
+lookup: average -3s percentage foreach user,system
+units: %
+every: 10s
+warn: $this > 50
+crit: $this > 80
+info: CPU utilization of users on the system itself.
+```
+
+```
+[max@db ~]$ sudo systemctl restart netdata
+``` 
