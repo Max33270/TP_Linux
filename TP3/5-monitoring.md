@@ -2,6 +2,8 @@
 
 ## Module 5 : Monitoring
 
+### Installations
+
 ``` 
 [max@db ~]$ sudo dnf update
 [max@db ~]$ sudo dnf install epel-release -y
@@ -11,6 +13,7 @@ Complete!
 [max@db ~]$ wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh
 ```
 
+### Configuration de Netdata
 ```
 [max@db ~]$ sudo systemctl start netdata
 [max@db ~]$ sudo systemctl enable netdata
@@ -83,7 +86,7 @@ Installed:
 
 Complete!
 ``` 
-
+### Test
 ```
 [max@db ~]$ stress-ng -c 10 -l 60
 stress-ng: info:  [47912] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
