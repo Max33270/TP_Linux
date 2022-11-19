@@ -36,7 +36,6 @@ bantime = 1d
 findtime = 1m
 maxretry = 3
 
-[max@db ~]$ sudo systemctl restart fail2ban
 [max@db ~]$ sudo systemctl start fail2ban
 [max@db ~]$ sudo systemctl enable fail2ban
 Created symlink /etc/systemd/system/multi-user.target.wants/fail2ban.service → /usr/lib/systemd/system/fail2ban.service.
