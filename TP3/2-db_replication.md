@@ -106,7 +106,7 @@ MariaDB [(none)]> SHOW MASTER STATUS;
 +------------------+----------+--------------+------------------+
 | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
 +------------------+----------+--------------+------------------+
-| mysql-bin.000001 |   284873 |              |                  |
+| mysql-bin.000002 |   342    |              |                  |
 +------------------+----------+--------------+------------------+
 1 row in set (0.000 sec)
 
@@ -165,7 +165,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]> STOP SLAVE;
 Query OK, 0 rows affected (0.005 sec)
 
-MariaDB [(none)]> CHANGE MASTER TO MASTER_HOST = '10.102.1.12', MASTER_USER = 'mdoub', MASTER_PASSWORD = 'pewpewpew', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 284873;
+MariaDB [(none)]> CHANGE MASTER TO MASTER_HOST = '10.102.1.12', MASTER_USER = 'mdoub', MASTER_PASSWORD = 'pewpewpew', MASTER_LOG_FILE = 'mysql-bin.000002', MASTER_LOG_POS = 342;
 Query OK, 0 rows affected (0.013 sec)
 
 MariaDB [(none)]> START SLAVE;
@@ -179,7 +179,7 @@ MariaDB [(none)]> SHOW SLAVE STATUS
                    Master_User: mdoub
                    Master_Port: 3306
                  Connect_Retry: 60
-               Master_Log_File: mysql-bin.000001
+               Master_Log_File: mysql-bin.000002
 ``` 
 
 ### Test
