@@ -24,6 +24,13 @@ Complete!
 ```
 
 ```
+[max@db ~]$ sudo firewall-cmd --add-port=19999/tcp --permanent
+success
+[max@db ~]$ sudo firewall-cmd --reload
+success
+```
+
+```
 PS C:\Users\mdoub\Desktop> curl 10.102.1.12:19999
 
 
