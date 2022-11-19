@@ -13,12 +13,6 @@ Complete!
 ```
 [max@replication ~]$ sudo systemctl start mariadb
 [sudo] password for max:
-sudo: a password is required
-[max@replication ~]$ systemctl start mariadb
-Failed to start mariadb.service: Access denied
-See system logs and 'systemctl status mariadb.service' for details.
-[max@replication ~]$ sudo systemctl start mariadb
-[sudo] password for max:
 [max@replication ~]$ sudo systemctl enable mariadb
 Created symlink /etc/systemd/system/mysql.service → /usr/lib/systemd/system/mariadb.service.
 Created symlink /etc/systemd/system/mysqld.service → /usr/lib/systemd/system/mariadb.service.
