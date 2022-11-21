@@ -130,7 +130,7 @@ mv: cannot move 'nextcloud/themes' to '/var/www/tp2_nextcloud/themes': File exis
 mv: cannot move 'nextcloud/updater' to '/var/www/tp2_nextcloud/updater': File exists
 ``` 
 
-
+### Machine 10.102.1.12/24 (web)
 ```
 [max@db ~]$ sudo nano tp3_automation_nextcloud.sh
 
