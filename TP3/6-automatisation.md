@@ -207,7 +207,22 @@ success
 success
 ``` 
 
-
+## Ajouter dans le fichier hosts de votre pc la ligne : 10.102.1.11 web.tp2.linux 
+```
+#
+# Copyright (c) 2007 F-Secure Corporation 
+# 
+# This is a HOSTS file created during malware removal. 
+#
+# Your original HOSTS file was infected and it was replaced 
+# by this file containing only clean default entries. 
+# The original HOSTS file may be restored from the product's
+# quarantine feature.
+#
+127.0.0.1	localhost
+10.102.1.11 web.tp2.linux
+::1			localhost
+```
 
 
 
