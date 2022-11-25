@@ -350,8 +350,89 @@ La construction d'image avec Docker est basée sur l'utilisation de fichiers `Do
 📁 **`Dockerfile`**
 
 ```
+[max@docker1 ~]$ sudo mkdir docker_workspace
 
+[max@docker1 ~]$ cd docker_workspace/
+
+[max@docker1 docker_workspace]$ cat Dockerfile
+FROM debian
+
+RUN apt update -y && \
+    apt install -y apache2
+
+ADD index.html /var/www/html
+
+ADD apache2Conf.conf /etc/apache2/apache2.conf
+
+RUN mkdir /etc/apache2/logs
+
+CMD [ "/usr/lib/apache2", "-g", "daemon off;" ]
+
+
+[max@docker1 docker_workspace]$ ls
+Dockerfile
 ``` 
+```
+[max@docker1 docker_workspace]$ docker build . -t my_own_apache
+Successfully built dcb68193300f
+Successfully tagged my_own_apache:latest
+
+[max@docker1 docker_workspace]$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+my_own_apache   latest    dcb68193300f   43 seconds ago   253MB
+```
+```
+[max@docker1 docker_workspace]$ cat index.html
+<!DOCTYPE html>
+<html>
+<title>Apache</title>
+<body>
+<h1>Welcome to APache</h1>
+</body>
+</html>
+``` 
+```
+[max@docker1 docker_workspace]$ cat apache2Conf.conf
+# on définit un port sur lequel écouter
+Listen 80
+ServerName 10.104.1.O
+# on charge certains modules Apache strictement nécessaires à son bon fonctionnement
+LoadModule mpm_event_module "/usr/lib/apache2/modules/mod_mpm_event.so"
+LoadModule dir_module "/usr/lib/apache2/modules/mod_dir.so"
+LoadModule authz_core_module "/usr/lib/apache2/modules/mod_authz_core.so"
+
+# on indique le nom du fichier HTML à charger par défaut
+DirectoryIndex index.html
+# on indique le chemin où se trouve notre site
+DocumentRoot "/var/www/html/"
+
+# quelques paramètres pour les logs
+ErrorLog "logs/error.log"
+LogLevel warn
+```
+```
+[max@docker1 docker_workspace]$ docker build . -t my_own_apache
+Successfully built ce7965f5899a
+Successfully tagged my_own_apache:latest
+
+[max@docker1 docker_workspace]$ docker run -p 8888:80 my_own_apache apache2 -DFOREGROUND
+```
+
+```
+mdoub@MAX-PC MINGW64 /
+$ curl 10.104.1.0:8888
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    95  100    95    0     0  35133      0 --:--:-- --:--:-- --:--:-- 95000<!DOCTYPE html>
+<html>
+<title>Apache</title>
+<body>
+<h1>Welcome to APache</h1>
+</body>
+</html>
+```
+
+
 
 # III. `docker-compose`
 
