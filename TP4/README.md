@@ -431,9 +431,6 @@ $ curl 10.104.1.0:8888
 </body>
 </html>
 ```
-
-
-
 # III. `docker-compose`
 
 ## 1. Intro
