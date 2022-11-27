@@ -443,6 +443,7 @@ $ curl 10.104.1.0:8888
 
 > En plus d'être pratique, il fournit des fonctionnalités additionnelles, liés au fait qu'il s'occupe à lui tout seul de lancer tous les conteneurs. On peut par exemple demander à un conteneur de ne s'allumer que lorsqu'un autre conteneur est devenu "healthy". Idéal pour lancer une application après sa base de données par exemple.
 
+
 Le principe de fonctionnement de `docker-compose` :
 
 - on écrit un fichier qui décrit les conteneurs voulus
@@ -512,3 +513,45 @@ Peu importe le langage aussi ! Go, Python, PHP (désolé des gros mots), Node (j
   - la commande `docker-compose` pour lancer le(s) conteneur(s)
 
 📁 📁 `app/Dockerfile` et `app/docker-compose.yml`. Je veux un sous-dossier `app/` sur votre dépôt git avec ces deux fichiers dedans :)
+
+### Pour lancer l'application : 
+```
+[max@docker1 ~]$ git clone https://github.com/Max33270/Golang-HangmanWeb.git
+
+[max@localhost ~]$ cd app/
+
+[max@localhost app]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+hangman       latest    220b42d85404   12 minutes ago   892MB
+debian        latest    c31f65dd4cc9   12 days ago      124MB
+hello-world   latest    feb5d9fea6a5   14 months ago    13.3kB
+
+[max@localhost main]$ docker build . -t hangman
+Sending build context to Docker daemon  7.168kB
+Step 1/6 : FROM debian
+ ---> c31f65dd4cc9
+Step 2/6 : RUN apt update -y
+ ---> Using cache
+ ---> 46628747b5c1
+Step 3/6 : RUN apt install -y golang git
+ ---> Using cache
+ ---> af002502386e
+Step 4/6 : RUN /usr/bin/git clone https://github.com/Max33270/Golang-HangmanWeb2.git /app
+ ---> Using cache
+ ---> 52b5592d5dfe
+Step 5/6 : WORKDIR /app
+ ---> Using cache
+ ---> c1b4353d5605
+Step 6/6 : CMD [ "/usr/bin/go", "run", "./main/main.go" ]
+ ---> Running in 370dd36a3397
+Removing intermediate container 370dd36a3397
+ ---> fd55eafb76fb
+Successfully built fd55eafb76fb
+Successfully tagged hangman:latest
+
+[max@localhost main]$ docker compose up
+[+] Running 1/0
+ ⠿ Container main-hangman-1  Recreated                                                   0.1s
+Attaching to main-hangman-1
+main-hangman-1  | Listening on:8080
+``` 
