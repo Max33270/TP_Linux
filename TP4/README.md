@@ -187,9 +187,6 @@ c58a99506874   debian    "sleep 99999"   35 seconds ago   Up 34 seconds         
 
 [max@docker1 ~]$ docker logs hopeful_edison
 
-[max@docker1 ~]$ docker logs -f hopeful_edison
-^C
-
 [max@docker1 ~]$ docker ps
 CONTAINER ID   IMAGE     COMMAND         CREATED         STATUS         PORTS     NAMES
 c58a99506874   debian    "sleep 99999"   2 minutes ago   Up 2 minutes             hopeful_edison
@@ -514,19 +511,19 @@ Peu importe le langage aussi ! Go, Python, PHP (désolé des gros mots), Node (j
 
 📁 📁 `app/Dockerfile` et `app/docker-compose.yml`. Je veux un sous-dossier `app/` sur votre dépôt git avec ces deux fichiers dedans :)
 
-### Pour lancer l'application : 
+### Lancement de l'application : 
 ```
 [max@docker1 ~]$ git clone https://github.com/Max33270/Golang-HangmanWeb.git
 
-[max@localhost ~]$ cd app/
+[max@docker1 ~]$ cd Golang-HangmanWeb/app 
 
-[max@localhost app]$ docker images
+[max@docker1 app]$ docker images
 REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
 hangman       latest    220b42d85404   12 minutes ago   892MB
 debian        latest    c31f65dd4cc9   12 days ago      124MB
 hello-world   latest    feb5d9fea6a5   14 months ago    13.3kB
 
-[max@localhost main]$ docker build . -t hangman
+[max@docker1 app]$ docker build . -t hangman
 Sending build context to Docker daemon  7.168kB
 Step 1/6 : FROM debian
  ---> c31f65dd4cc9
@@ -549,9 +546,54 @@ Removing intermediate container 370dd36a3397
 Successfully built fd55eafb76fb
 Successfully tagged hangman:latest
 
-[max@localhost main]$ docker compose up
+[max@docker1 app]$ docker compose up
 [+] Running 1/0
  ⠿ Container main-hangman-1  Recreated                                                   0.1s
 Attaching to main-hangman-1
 main-hangman-1  | Listening on:8080
 ``` 
+
+### Test de l'Application 
+
+```
+C:\Users\mdoub>curl 10.104.1.0:8080
+<a href="/accueil">Moved Permanently</a>.
+
+
+C:\Users\mdoub>curl 10.104.1.0:8080/accueil
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="static/accueil.css" />
+
+    <title>Hangman</title>
+
+</head>
+
+<body>
+    <h1>
+        HANGMAN
+    </h1>
+
+    <div>
+        <form action="/choix" method="post">
+            <input id= "pseudo" required type="text" name="nom_utilisateur" placeholder="Entrez votre pseudo">
+            <br>
+            <div class = "niveaux">
+                <input class="replay" type="submit" value="EASY" name="w">
+                <input class="replay2" type="submit" value="NORMAL" name="w">
+                <input class="replay3" type="submit" value="HARD" name="w">
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
+``` 
+
